@@ -4,7 +4,7 @@ public class Mail {
 
     public static void main(String args[ ]) {
         try {
-            new Messeger();
+            new Message();
         } catch (IOException e) {
             e.printStackTrace();
         }

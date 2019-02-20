@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class Messeger {
-    public Messeger() throws IOException {
+public class Message {
+    public Message() throws IOException {
         String mail="@mail.ru";
         String gmail="@gmail.com";
         Scanner scanner = new Scanner(System.in);
@@ -46,11 +46,11 @@ public class Messeger {
                     }
                 });
         try {
-            Message message = new MimeMessage(session);
+            javax.mail.Message message = new MimeMessage(session);
             // от кого
             message.setFrom(new InternetAddress(username));
             //кому
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(yourname));
+            message.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse(yourname));
             // тема
             System.out.println("Тема сообщения");
             message.setSubject(scanner.nextLine());
