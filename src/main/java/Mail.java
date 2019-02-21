@@ -1,7 +1,6 @@
 import java.io.IOException;
 
-public class Mail {
-
+public class Mail{
     public static void main(String args[ ]) {
         try {
             new Message();

@@ -12,10 +12,13 @@ import java.util.Properties;
 import java.util.Scanner;
 
 public class Message {
+
+    private String mail="@mail.ru";
+    private String gmail="@gmail.com";
+    private Scanner scanner = new Scanner(System.in);
+
     public Message() throws IOException {
-        String mail="@mail.ru";
-        String gmail="@gmail.com";
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Почтой сервис");
         if (mail.equals(scanner.nextLine())) {
             MailMessager("src/main/resources/MailSMTP.properties");
@@ -24,6 +27,7 @@ public class Message {
             MailMessager("src/main/resources/GmailSMTP.properties");
         }
     }
+
     private void MailMessager(String file) throws IOException {
         Scanner scanner=new Scanner(System.in);
         System.out.println("Почта отправителя");
@@ -58,7 +62,7 @@ public class Message {
             Multipart multipart = new MimeMultipart();
 
             System.out.println("Будет сообщение?");
-            if(scanner.nextLine().equals("да")) {
+            if(scanner.nextLine().equals("yes")) {
                 MimeBodyPart textBodyPart = new MimeBodyPart();
                 // текст
                 System.out.println("Сообщение");
@@ -68,17 +72,15 @@ public class Message {
             }
 
             System.out.println("Будет вложение?");
-            if(scanner.nextLine().equals("да")) {
+            if(scanner.nextLine().equals("yes")) {
                 MimeBodyPart attachmentBodyPart = new MimeBodyPart();
 
-                System.out.println("Введите адрес вложения");
-                String attachementPath =scanner.nextLine();
-                DataSource source = new FileDataSource(attachementPath); // ex : "C:\\test.pdf"
+                FileChooser fileChooser=new FileChooser();
 
-                System.out.println("Введите название файла");
-                String fileName =scanner.nextLine();
+                DataSource source = new FileDataSource(fileChooser.getSelectedFile()); // ex : "C:\\test.pdf"
+
                 attachmentBodyPart.setDataHandler(new DataHandler(source));
-                attachmentBodyPart.setFileName(fileName); // ex : "test.pdf"
+                attachmentBodyPart.setFileName(fileChooser.getName());
 
                 multipart.addBodyPart(attachmentBodyPart); // add the attachement part
             }
